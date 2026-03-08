@@ -652,3 +652,218 @@ function psc_save_report(
 
     return true;
 }
+
+/* ═══════════════════════════════════════════
+   8. 리뷰 목록 페이지 라우팅
+═══════════════════════════════════════════ */
+
+// Rewrite Rule: /store/{slug}/reviews/ → index.php?psc_store_reviews=slug
+add_action( 'init', function () {
+    add_rewrite_rule(
+        '^store/([^/]+)/reviews/?$',
+        'index.php?psc_store_reviews=$matches[1]',
+        'top'
+    );
+} );
+
+// Query Var 등록
+add_filter( 'query_vars', function ( $vars ) {
+    $vars[] = 'psc_store_reviews';
+    return $vars;
+} );
+
+// 라우터 처리
+add_action( 'template_redirect', function () {
+    $slug = get_query_var( 'psc_store_reviews' );
+    if ( ! $slug ) return;
+
+    // 슬러그로 store CPT 찾기
+    $store = get_page_by_path( $slug, OBJECT, 'store' );
+    if ( ! $store ) {
+        wp_redirect( home_url( '/' ) );
+        exit;
+    }
+
+    // 페이지 출력
+    psc_render_reviews_page( $store->ID );
+    exit;
+} );
+
+function psc_render_reviews_page( int $store_id ): void {
+    $store_title = get_the_title( $store_id );
+    $store_url   = get_permalink( $store_id );
+    $write_url   = psc_review_write_url( $store_id );
+    $user_id     = get_current_user_id();
+    $can_write   = psc_can_write_review( $store_id, $user_id );
+    $summary     = psc_get_review_summary( $store_id );
+    $reviews     = psc_get_reviews( $store_id, 'latest', 20, 0 );
+
+    get_header();
+    echo psc_review_style();
+    ?>
+    <div class="psc-rv-page-wrap" style="max-width:640px;margin:0 auto;padding:20px 16px 60px;">
+
+        <?php /* ── 헤더 ── */ ?>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+            <a href="<?php echo esc_url( $store_url ); ?>"
+               style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#f4f6f9;text-decoration:none;font-size:1.2rem;">
+                ←
+            </a>
+            <div>
+                <div style="font-size:.78rem;color:#8b95a1;margin-bottom:2px;">매장 리뷰</div>
+                <div style="font-size:1.05rem;font-weight:800;color:#191f28;">
+                    <?php echo esc_html( $store_title ); ?>
+                </div>
+            </div>
+        </div>
+
+        <?php /* ── 요약 ── */ ?>
+        <div class="psc-rv-summary" style="margin-bottom:20px;">
+            <div class="psc-rv-summary__top">
+                <div class="psc-rv-summary__score">
+                    <div class="psc-rv-summary__big">
+                        <?php echo $summary->total > 0 ? number_format( (float) $summary->avg_rating, 1 ) : '-'; ?>
+                    </div>
+                    <div class="psc-rv-summary__stars">
+                        <?php echo psc_render_stars( (float) $summary->avg_rating ); ?>
+                    </div>
+                    <div class="psc-rv-summary__cnt">리뷰 <?php echo (int) $summary->total; ?>개</div>
+                </div>
+                <div class="psc-rv-summary__bars">
+                    <?php for ( $s = 5; $s >= 1; $s-- ) :
+                        $cnt = (int) ( $summary->distribution[ $s ] ?? 0 );
+                        $pct = $summary->total > 0 ? round( $cnt / $summary->total * 100 ) : 0;
+                    ?>
+                    <div class="psc-rv-bar-row">
+                        <span class="psc-rv-bar-row__label"><?php echo $s; ?></span>
+                        <div class="psc-rv-bar-track">
+                            <div class="psc-rv-bar-fill" style="width:<?php echo $pct; ?>%"></div>
+                        </div>
+                        <span class="psc-rv-bar-row__pct"><?php echo $pct; ?>%</span>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+
+            <?php /* ── 리뷰 작성 버튼 ── */ ?>
+            <div class="psc-rv-summary__actions">
+                <?php if ( ! $user_id ) : ?>
+                    <a href="<?php echo esc_url( wp_login_url( $write_url ) ); ?>"
+                       class="psc-rv-btn psc-rv-btn--primary">
+                        🐾 로그인 후 리뷰 작성
+                    </a>
+                <?php elseif ( $can_write === 'duplicate' ) : ?>
+                    <span class="psc-rv-btn psc-rv-btn--secondary" style="cursor:default;">
+                        ✅ 이미 리뷰를 작성하셨어요
+                    </span>
+                <?php else : ?>
+                    <a href="<?php echo esc_url( $write_url ); ?>"
+                       class="psc-rv-btn psc-rv-btn--primary">
+                        ✏️ 리뷰 작성하기
+                    </a>
+                <?php endif; ?>
+                <a href="<?php echo esc_url( $store_url ); ?>"
+                   class="psc-rv-btn psc-rv-btn--secondary">
+                    매장 정보
+                </a>
+            </div>
+        </div>
+
+        <?php /* ── 리뷰 목록 ── */ ?>
+        <div class="psc-rv-list">
+            <?php if ( empty( $reviews ) ) : ?>
+                <div style="text-align:center;padding:48px 0;color:#8b95a1;font-size:.9rem;">
+                    아직 작성된 리뷰가 없어요.<br>첫 번째 리뷰를 작성해보세요! 🐾
+                </div>
+            <?php else : ?>
+                <?php foreach ( $reviews as $review ) :
+                    $images   = psc_get_review_images( (int) $review->id );
+                    $liked    = $user_id ? psc_user_liked_review( (int) $review->id, $user_id ) : false;
+                    $is_mine  = $user_id && (int) $review->user_id === $user_id;
+                    $is_admin = current_user_can( 'manage_options' );
+                    $name     = psc_mask_name( $review->display_name ?: '익명' );
+                    $tags     = $review->tags ? json_decode( $review->tags, true ) : [];
+                    $all_tags = psc_get_review_tags( $store_id );
+                    $tag_map  = array_column( $all_tags, null, 'id' );
+                ?>
+                <div class="psc-rv-card">
+                    <div class="psc-rv-card__head">
+                        <div class="psc-rv-avatar"><?php echo esc_html( mb_substr( $name, 0, 1 ) ); ?></div>
+                        <div class="psc-rv-card__meta">
+                            <div class="psc-rv-card__name"><?php echo esc_html( $name ); ?></div>
+                            <div class="psc-rv-card__sub">
+                                <?php echo psc_render_stars( (float) $review->rating ); ?>
+                                <span class="psc-rv-card__date">
+                                    <?php echo esc_html( date_i18n( 'Y.m.d', strtotime( $review->created_at ) ) ); ?>
+                                </span>
+                                <?php if ( $review->verify_type ) : ?>
+                                    <span class="psc-rv-badge psc-rv-badge--<?php echo esc_attr( $review->verify_type ); ?>">
+                                        <?php echo $review->verify_type === 'receipt' ? '🧾 영수증' : '📍 GPS'; ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php if ( ! empty( $tags ) ) : ?>
+                    <div class="psc-rv-card__tags">
+                        <?php foreach ( $tags as $tag_id ) :
+                            $tag = $tag_map[ $tag_id ] ?? null;
+                            if ( ! $tag ) continue;
+                        ?>
+                        <span class="psc-rv-card__tag">
+                            <?php echo esc_html( $tag['emoji'] . ' ' . $tag['label'] ); ?>
+                        </span>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <div class="psc-rv-card__body is-clamped">
+                        <?php echo nl2br( esc_html( $review->content ) ); ?>
+                    </div>
+                    <?php if ( mb_strlen( $review->content ) > 100 ) : ?>
+                    <button class="psc-rv-more-btn">더보기</button>
+                    <?php endif; ?>
+
+                    <?php if ( ! empty( $images ) ) : ?>
+                    <div class="psc-rv-images">
+                        <?php foreach ( $images as $img ) : ?>
+                        <img class="psc-rv-thumb"
+                             src="<?php echo esc_url( $img->url ); ?>"
+                             data-full="<?php echo esc_url( $img->url ); ?>"
+                             alt="리뷰 이미지" loading="lazy">
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <div class="psc-rv-card__foot">
+                        <button class="psc-rv-like-btn <?php echo $liked ? 'is-liked' : ''; ?>"
+                                data-rid="<?php echo (int) $review->id; ?>"
+                                data-nonce="<?php echo esc_attr( wp_create_nonce( 'psc_toggle_like' ) ); ?>">
+                            <?php echo $liked ? '❤️' : '🤍'; ?>
+                            <span class="psc-rv-like-cnt"><?php echo (int) $review->likes; ?></span>
+                        </button>
+                        <?php if ( $is_mine || $is_admin ) : ?>
+                        <button class="psc-rv-delete-btn"
+                                data-rid="<?php echo (int) $review->id; ?>"
+                                data-nonce="<?php echo esc_attr( wp_create_nonce( 'psc_delete_review' ) ); ?>">
+                            삭제
+                        </button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <?php /* 라이트박스 */ ?>
+    <div id="psc-rv-lightbox" class="psc-rv-lightbox">
+        <button class="psc-rv-lightbox__close">✕</button>
+        <img src="" alt="이미지">
+    </div>
+
+    <?php
+    echo psc_review_script();
+    get_footer();
+}
