@@ -1,0 +1,123 @@
+/* =============================================
+   Review Common – variables, stars, badges
+   ============================================= */
+
+   :root {
+    /* 컬러 시스템 */
+    --rv-primary:     #03C75A;   /* 네이버 그린 계열 */
+    --rv-primary-dark:#02a44c;
+    --rv-accent:      #FF6B35;   /* 펫스페이스 오렌지 */
+    --rv-star:        #FFD600;
+    --rv-star-empty:  #E0E0E0;
+  
+    --rv-text1:  #191f28;
+    --rv-text2:  #4e5968;
+    --rv-text3:  #8b95a1;
+    --rv-border: #e5e8ec;
+    --rv-bg:     #f4f6f9;
+    --rv-white:  #ffffff;
+  
+    /* 반경 */
+    --rv-radius-sm: 8px;
+    --rv-radius:    12px;
+    --rv-radius-lg: 20px;
+  
+    /* 그림자 */
+    --rv-shadow-sm: 0 1px 4px rgba(0,0,0,.08);
+    --rv-shadow:    0 4px 16px rgba(0,0,0,.10);
+    --rv-shadow-lg: 0 8px 32px rgba(0,0,0,.14);
+  
+    /* 폰트 */
+    --rv-font: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+    /* 트랜지션 */
+    --rv-trans: .22s cubic-bezier(.4,0,.2,1);
+  }
+  
+  /* ── 별점 ─────────────────────────────────── */
+  .rv-stars {
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+  }
+  .rv-stars__icon {
+    font-size: 18px;
+    line-height: 1;
+    color: var(--rv-star-empty);
+    transition: color var(--rv-trans);
+  }
+  .rv-stars__icon--filled  { color: var(--rv-star); }
+  .rv-stars__icon--half    { color: var(--rv-star); opacity: .5; }
+  .rv-stars--sm .rv-stars__icon { font-size: 14px; }
+  .rv-stars--lg .rv-stars__icon { font-size: 28px; }
+  
+  /* ── 뱃지 ─────────────────────────────────── */
+  .rv-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--rv-font);
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  .rv-badge--receipt {
+    background: #e8f4ff;
+    color: #1971c2;
+  }
+  .rv-badge--gps {
+    background: #e6faf0;
+    color: #087f5b;
+  }
+  .rv-badge--best {
+    background: #fff3e0;
+    color: #e65100;
+  }
+  
+  /* ── 공통 태그 칩 ──────────────────────────── */
+  .rv-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-family: var(--rv-font);
+    font-weight: 500;
+    border: 1.5px solid var(--rv-border);
+    background: var(--rv-white);
+    color: var(--rv-text2);
+    cursor: pointer;
+    transition: all var(--rv-trans);
+    user-select: none;
+  }
+  .rv-chip:hover   { border-color: var(--rv-primary); color: var(--rv-primary); }
+  .rv-chip--active { border-color: var(--rv-primary); background: var(--rv-primary); color: #fff; }
+  
+  /* ── 스피너 ───────────────────────────────── */
+  @keyframes rv-spin { to { transform: rotate(360deg); } }
+  .rv-spinner {
+    width: 24px; height: 24px;
+    border: 3px solid var(--rv-border);
+    border-top-color: var(--rv-primary);
+    border-radius: 50%;
+    animation: rv-spin .7s linear infinite;
+    display: inline-block;
+  }
+  
+  /* ── 공통 애니메이션 ──────────────────────── */
+  @keyframes rv-fade-in   { from { opacity:0 } to { opacity:1 } }
+  @keyframes rv-slide-up  { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+  @keyframes rv-shake     {
+    0%,100%{ transform:translateX(0) }
+    20%    { transform:translateX(-6px) }
+    40%    { transform:translateX(6px) }
+    60%    { transform:translateX(-4px) }
+    80%    { transform:translateX(4px) }
+  }
+  .rv-anim-fade   { animation: rv-fade-in  .25s ease; }
+  .rv-anim-slide  { animation: rv-slide-up .3s ease;  }
+  .rv-anim-shake  { animation: rv-shake    .4s ease;  }
+  
