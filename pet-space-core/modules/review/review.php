@@ -237,9 +237,9 @@ function psc_review_write_url( int $store_id ): string {
 }
 
 function psc_review_list_url( int $store_id ): string {
-    $slug = get_post_field( 'post_name', $store_id );
-    return home_url( "/store/{$slug}/reviews/" );
+    return home_url( '/reviews/?store_id=' . $store_id );
 }
+
 
 /* ═══════════════════════════════════════════
    4. 매장 인증 방식 헬퍼
@@ -628,16 +628,8 @@ function psc_save_report(
 
 /* ═══════════════════════════════════════════
    8. 리뷰 목록 페이지 라우팅
-   URL: /store/{slug}/reviews/
+   URL: /reviews/?store_id=123
 ═══════════════════════════════════════════ */
-
-add_action( 'init', function () {
-    add_rewrite_rule(
-        '^store/([^/]+)/reviews/?$',
-        'index.php?psc_store_reviews=$matches[1]',
-        'top'
-    );
-} );
 
 add_filter( 'query_vars', function ( array $vars ): array {
     $vars[] = 'psc_store_reviews';
@@ -645,16 +637,15 @@ add_filter( 'query_vars', function ( array $vars ): array {
 } );
 
 add_action( 'template_redirect', function () {
-    $slug = get_query_var( 'psc_store_reviews' );
-    if ( ! $slug ) return;
+    if ( ! is_page( 'reviews' ) ) return;
 
-    $store = get_page_by_path( $slug, OBJECT, 'store' );
-    if ( ! $store ) {
-        wp_redirect( home_url( '/' ) );
-        exit;
-    }
+    $store_id = (int) ( $_GET['store_id'] ?? 0 );
+    if ( ! $store_id ) return;
 
-    psc_render_reviews_page( $store->ID );
+    $store = get_post( $store_id );
+    if ( ! $store || $store->post_type !== 'store' ) return;
+
+    psc_render_reviews_page( $store_id );
     exit;
 } );
 
