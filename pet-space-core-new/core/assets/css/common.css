@@ -1,0 +1,207 @@
+/* ═══════════════════════════════════════
+   PetSpace 공통 CSS 변수 & 컴포넌트
+═══════════════════════════════════════ */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+    /* ── 브랜드 컬러 ── */
+    --psc-primary      : #224471;
+    --psc-primary-dk   : #1a3459;
+    --psc-primary-lt   : #eef3fa;
+    --psc-accent       : #FF6B35;
+    --psc-accent-lt    : #fff3ee;
+
+    /* ── 텍스트 ── */
+    --psc-text1        : #191f28;
+    --psc-text2        : #4e5968;
+    --psc-text3        : #8b95a1;
+
+    /* ── 상태 컬러 ── */
+    --psc-green        : #10b981;
+    --psc-green-lt     : #d1fae5;
+    --psc-red          : #ef4444;
+    --psc-red-lt       : #fee2e2;
+    --psc-yellow       : #f59e0b;
+    --psc-yellow-lt    : #fef9c3;
+    --psc-blue         : #3b82f6;
+    --psc-blue-lt      : #dbeafe;
+
+    /* ── UI ── */
+    --psc-border       : #e5e8eb;
+    --psc-bg           : #f4f6f9;
+    --psc-card         : #ffffff;
+    --psc-radius-sm    : 8px;
+    --psc-radius       : 12px;
+    --psc-radius-lg    : 16px;
+    --psc-radius-xl    : 20px;
+    --psc-shadow-sm    : 0 2px 8px rgba(0,0,0,0.06);
+    --psc-shadow       : 0 4px 16px rgba(0,0,0,0.10);
+    --psc-shadow-lg    : 0 8px 32px rgba(0,0,0,0.14);
+
+    /* ── 폰트 ── */
+    --psc-font         : 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* ── 트랜지션 ── */
+    --psc-transition   : all 0.15s ease;
+}
+
+/* ── 공통 리셋 ── */
+.psc-wrap * {
+    box-sizing: border-box;
+    font-family: var(--psc-font);
+}
+
+/* ── 공통 버튼 ── */
+.psc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 11px 20px;
+    border-radius: var(--psc-radius);
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: var(--psc-font);
+    cursor: pointer;
+    border: none;
+    transition: var(--psc-transition);
+    text-decoration: none;
+}
+.psc-btn:active { transform: scale(0.98); }
+.psc-btn:disabled {
+    background: var(--psc-border) !important;
+    color: var(--psc-text3) !important;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.psc-btn--primary {
+    background: var(--psc-primary);
+    color: #fff;
+}
+.psc-btn--primary:hover { background: var(--psc-primary-dk); color: #fff; }
+
+.psc-btn--secondary {
+    background: var(--psc-bg);
+    color: var(--psc-text1);
+    border: 1px solid var(--psc-border);
+}
+.psc-btn--secondary:hover { background: var(--psc-border); }
+
+.psc-btn--accent {
+    background: var(--psc-accent);
+    color: #fff;
+}
+.psc-btn--accent:hover { background: #e55a25; color: #fff; }
+
+.psc-btn--full { width: 100%; }
+
+.psc-btn--lg { padding: 14px 24px; font-size: 1rem; border-radius: var(--psc-radius-lg); }
+.psc-btn--sm { padding: 7px 14px; font-size: 0.8rem; border-radius: var(--psc-radius-sm); }
+
+/* ── 공통 뱃지 ── */
+.psc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 99px;
+}
+.psc-badge--green  { background: var(--psc-green-lt);  color: #065f46; }
+.psc-badge--red    { background: var(--psc-red-lt);    color: #991b1b; }
+.psc-badge--blue   { background: var(--psc-blue-lt);   color: #1e40af; }
+.psc-badge--yellow { background: var(--psc-yellow-lt); color: #854d0e; }
+.psc-badge--primary{ background: var(--psc-primary-lt);color: var(--psc-primary); }
+
+/* ── 공통 카드 ── */
+.psc-card {
+    background: var(--psc-card);
+    border: 1px solid var(--psc-border);
+    border-radius: var(--psc-radius-lg);
+    box-shadow: var(--psc-shadow-sm);
+}
+
+/* ── 공통 인풋 ── */
+.psc-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--psc-border);
+    border-radius: var(--psc-radius);
+    font-size: 0.9rem;
+    font-family: var(--psc-font);
+    color: var(--psc-text1);
+    background: var(--psc-bg);
+    transition: border-color 0.15s;
+    outline: none;
+}
+.psc-input:focus {
+    border-color: var(--psc-primary);
+    background: #fff;
+}
+.psc-input::placeholder { color: var(--psc-text3); }
+
+/* ── 공통 textarea ── */
+.psc-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px 14px;
+    border: 1px solid var(--psc-border);
+    border-radius: var(--psc-radius);
+    font-size: 0.9rem;
+    font-family: var(--psc-font);
+    color: var(--psc-text1);
+    background: var(--psc-bg);
+    resize: vertical;
+    transition: border-color 0.15s;
+    outline: none;
+    box-sizing: border-box;
+}
+.psc-textarea:focus {
+    border-color: var(--psc-primary);
+    background: #fff;
+}
+
+/* ── 공통 스피너 ── */
+.psc-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--psc-border);
+    border-top-color: var(--psc-primary);
+    border-radius: 50%;
+    animation: psc-spin 0.8s linear infinite;
+}
+@keyframes psc-spin { to { transform: rotate(360deg); } }
+
+/* ── 공통 애니메이션 ── */
+@keyframes psc-shake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-4px); }
+    75%       { transform: translateX(4px); }
+}
+@keyframes psc-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes psc-slide-up {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+}
+
+/* ── 공통 divider ── */
+.psc-divider {
+    height: 1px;
+    background: var(--psc-border);
+    margin: 16px 0;
+}
+
+/* ── 공통 empty state ── */
+.psc-empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--psc-text3);
+}
+.psc-empty__icon { font-size: 2.5rem; margin-bottom: 12px; }
+.psc-empty__text { font-size: 0.9rem; line-height: 1.6; }

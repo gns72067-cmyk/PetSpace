@@ -1,0 +1,534 @@
+/* =============================================================
+   PetSpace — Mypage Styles
+   File: modules/mypage/assets/css/mypage.css
+   ============================================================= */
+
+/* ── CSS 변수 (primary color는 assets.php에서 inline으로 주입) ── */
+:root {
+    --psc-mp-primary:      #224471;
+    --psc-mp-bg:           #f5f7fa;
+    --psc-mp-card-bg:      #ffffff;
+    --psc-mp-border:       #e8ecf0;
+    --psc-mp-text:         #1a1a2e;
+    --psc-mp-text-sub:     #6b7280;
+    --psc-mp-radius:       14px;
+    --psc-mp-shadow:       0 2px 12px rgba(0,0,0,.07);
+    --psc-mp-max-w:        480px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── Body ── */
+body.psc-mp-body {
+    margin: 0;
+    padding: 0;
+    background: var(--psc-mp-bg);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--psc-mp-text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Wrap ── */
+.psc-mp-wrap {
+    max-width: var(--psc-mp-max-w);
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+
+/* ── Topbar ── */
+.psc-mp-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--psc-mp-card-bg);
+    border-bottom: 1px solid var(--psc-mp-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.psc-mp-back {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--psc-mp-text);
+    text-decoration: none;
+    width: 36px;
+    display: flex;
+    align-items: center;
+}
+.psc-mp-topbar__logo-link { display: flex; align-items: center; }
+.psc-mp-topbar__logo      { height: 28px; width: auto; }
+
+/* ── Profile Card ── */
+.psc-mp-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 16px;
+    background: var(--psc-mp-card-bg);
+    border-bottom: 1px solid var(--psc-mp-border);
+}
+.psc-mp-avatar-wrap {
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.psc-mp-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--psc-mp-primary);
+    display: block;
+}
+.psc-mp-avatar-edit {
+    position: absolute;
+    bottom: 0; right: 0;
+    background: var(--psc-mp-primary);
+    color: #fff;
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    font-size: .7rem;
+    display: flex; align-items: center; justify-content: center;
+}
+.psc-mp-profile-name  { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
+.psc-mp-profile-email { font-size: .82rem; color: var(--psc-mp-text-sub); margin-bottom: 6px; }
+.psc-mp-role-badge {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--psc-mp-primary);
+    background: color-mix(in srgb, var(--psc-mp-primary) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--psc-mp-primary) 25%, transparent);
+    padding: 2px 9px;
+    border-radius: 20px;
+}
+
+/* ── Tabs ── */
+.psc-mp-tabs {
+    display: flex;
+    background: var(--psc-mp-card-bg);
+    border-bottom: 2px solid var(--psc-mp-border);
+}
+.psc-mp-tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 4px;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--psc-mp-text-sub);
+    text-decoration: none;
+    position: relative;
+    transition: color .2s;
+}
+.psc-mp-tab.active {
+    color: var(--psc-mp-primary);
+}
+.psc-mp-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 2px;
+    background: var(--psc-mp-primary);
+    border-radius: 2px 2px 0 0;
+}
+
+/* ── Content ── */
+.psc-mp-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ── Section Label ── */
+.psc-mp-section-label {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--psc-mp-text-sub);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: 18px 0 8px;
+}
+
+/* ── Card ── */
+.psc-mp-card {
+    background: var(--psc-mp-card-bg);
+    border-radius: var(--psc-mp-radius);
+    box-shadow: var(--psc-mp-shadow);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+/* ── Field ── */
+.psc-mp-field {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--psc-mp-border);
+}
+.psc-mp-field:last-child { border-bottom: none; }
+
+.psc-mp-field__label {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--psc-mp-text-sub);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.psc-mp-field__value {
+    font-size: .92rem;
+    color: var(--psc-mp-text);
+    padding: 8px 0;
+}
+.psc-mp-field__desc {
+    font-size: .75rem;
+    color: var(--psc-mp-text-sub);
+    margin-top: 4px;
+}
+
+/* ── Input ── */
+.psc-mp-input {
+    width: 100%;
+    border: 1.5px solid var(--psc-mp-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: .92rem;
+    font-family: inherit;
+    color: var(--psc-mp-text);
+    background: #fff;
+    outline: none;
+    transition: border-color .2s;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.psc-mp-input:focus { border-color: var(--psc-mp-primary); }
+textarea.psc-mp-input { resize: vertical; min-height: 80px; }
+
+/* ── Input Wrap (password toggle) ── */
+.psc-mp-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.psc-mp-input-wrap .psc-mp-input { padding-right: 44px; }
+.psc-mp-pwd-toggle {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    line-height: 1;
+}
+
+/* ── Pass Strength ── */
+.psc-mp-pass-strength { margin-top: 8px; }
+
+/* ── Required badge ── */
+.psc-mp-req {
+    font-size: .68rem;
+    font-weight: 700;
+    color: #ef4444;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+/* ── Hint ── */
+.psc-mp-hint        { font-size: .78rem; margin: 4px 0 0; }
+.psc-mp-hint.success{ color: #16a34a; }
+.psc-mp-hint.error  { color: #dc2626; }
+
+/* ── Radio ── */
+.psc-mp-radio-group { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 0; }
+.psc-mp-radio       { cursor: pointer; }
+.psc-mp-radio input { display: none; }
+.psc-mp-radio span {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--psc-mp-border);
+    font-size: .84rem;
+    font-weight: 500;
+    transition: all .2s;
+    background: #fff;
+    color: var(--psc-mp-text-sub);
+}
+.psc-mp-radio span.active,
+.psc-mp-radio input:checked + span {
+    background: var(--psc-mp-primary);
+    border-color: var(--psc-mp-primary);
+    color: #fff;
+}
+
+/* ── Checkbox ── */
+.psc-mp-checkbox { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.psc-mp-checkbox input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--psc-mp-primary);
+    cursor: pointer;
+}
+
+/* ── Submit Button ── */
+.psc-mp-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--psc-mp-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--psc-mp-radius);
+    font-size: .97rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity .2s;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 8px;
+}
+.psc-mp-btn:hover { opacity: .88; }
+
+/* ── Notice ── */
+.psc-mp-notice {
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: .86rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+.psc-mp-notice--error   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.psc-mp-notice--success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+
+/* ── Menu Items (계정 관리) ── */
+.psc-mp-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid var(--psc-mp-border);
+    text-decoration: none;
+    color: var(--psc-mp-text);
+    font-size: .92rem;
+    transition: background .15s;
+}
+.psc-mp-menu-item:last-child     { border-bottom: none; }
+.psc-mp-menu-item:hover          { background: var(--psc-mp-bg); }
+.psc-mp-menu-item--danger        { color: #dc2626; }
+.psc-mp-menu-item__icon          { font-size: 1.2rem; flex-shrink: 0; }
+.psc-mp-menu-item__text          { flex: 1; font-weight: 500; }
+.psc-mp-menu-item__arrow         { color: var(--psc-mp-text-sub); font-size: 1.2rem; }
+
+/* ── Empty State ── */
+.psc-mp-empty {
+    text-align: center;
+    padding: 48px 16px;
+}
+.psc-mp-empty__icon  { font-size: 3rem; margin-bottom: 12px; }
+.psc-mp-empty__title { font-size: 1rem; font-weight: 700; color: var(--psc-mp-text); margin-bottom: 6px; }
+.psc-mp-empty__desc  { font-size: .85rem; color: var(--psc-mp-text-sub); }
+
+/* ── Coupon Tabs ── */
+.psc-mp-coupon-tabs {
+    display: flex;
+    background: var(--psc-mp-card-bg);
+    border-radius: var(--psc-mp-radius);
+    border: 1px solid var(--psc-mp-border);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+.psc-mp-coupon-tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--psc-mp-text-sub);
+    text-decoration: none;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.psc-mp-coupon-tab.active {
+    background: var(--psc-mp-primary);
+    color: #fff;
+}
+.psc-mp-coupon-tab__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px; height: 20px;
+    border-radius: 10px;
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 0 5px;
+    background: rgba(255,255,255,.25);
+    color: inherit;
+}
+.psc-mp-coupon-tab:not(.active) .psc-mp-coupon-tab__count {
+    background: var(--psc-mp-bg);
+    color: var(--psc-mp-text-sub);
+}
+
+/* ── Coupon List ── */
+.psc-mp-coupon-list { display: flex; flex-direction: column; gap: 12px; }
+
+/* ── Coupon Card ── */
+.psc-mp-coupon-card {
+    background: var(--psc-mp-card-bg);
+    border-radius: var(--psc-mp-radius);
+    box-shadow: var(--psc-mp-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    transition: opacity .2s;
+}
+.psc-mp-coupon-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: var(--psc-mp-primary);
+    border-radius: var(--psc-mp-radius) 0 0 var(--psc-mp-radius);
+}
+.psc-mp-coupon-card.used { opacity: .55; }
+.psc-mp-coupon-card.used::before { background: #cbd5e1; }
+
+.psc-mp-coupon-main {
+    flex: 1;
+    padding: 16px 16px 16px 20px;
+    min-width: 0;
+}
+.psc-mp-coupon-side {
+    width: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-left: 1px dashed var(--psc-mp-border);
+}
+
+.psc-mp-coupon-discount {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    margin-bottom: 6px;
+}
+.psc-mp-coupon-discount__num {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--psc-mp-primary);
+    line-height: 1;
+}
+.psc-mp-coupon-discount__unit {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--psc-mp-primary);
+}
+
+.psc-mp-coupon-title  { font-size: .9rem; font-weight: 700; margin-bottom: 4px; }
+.psc-mp-coupon-period { font-size: .76rem; color: var(--psc-mp-text-sub); margin-bottom: 8px; }
+.psc-mp-coupon-store  {
+    display: flex; align-items: center; gap: 5px;
+    font-size: .78rem; color: var(--psc-mp-text-sub);
+}
+.psc-mp-coupon-store img { width: 16px; height: 16px; border-radius: 4px; object-fit: cover; }
+.psc-mp-coupon-store__link { color: var(--psc-mp-primary); text-decoration: none; font-weight: 600; }
+
+.psc-mp-coupon-brand {
+    font-size: .65rem;
+    font-weight: 800;
+    color: var(--psc-mp-primary);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: .1em;
+}
+
+.psc-mp-coupon-use-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--psc-mp-primary);
+    background: #fff;
+    color: var(--psc-mp-primary);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all .2s;
+    padding: 0;
+}
+.psc-mp-coupon-use-btn svg { width: 16px; height: 16px; }
+.psc-mp-coupon-use-btn:hover,
+.psc-mp-coupon-use-btn.active {
+    background: var(--psc-mp-primary);
+    color: #fff;
+}
+.psc-mp-coupon-use-btn--disabled {
+    border-color: #cbd5e1;
+    color: #cbd5e1;
+    cursor: default;
+}
+.psc-mp-coupon-use-btn--disabled:hover { background: #fff; color: #cbd5e1; }
+
+/* ── Coupon Panel ── */
+.psc-mp-coupon-panel {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, padding .35s ease;
+    background: var(--psc-mp-bg);
+    border-top: none;
+    text-align: center;
+    padding: 0 16px;
+}
+.psc-mp-coupon-panel.open {
+    max-height: 320px;
+    padding: 20px 16px;
+    border-top: 1px dashed var(--psc-mp-border);
+}
+.psc-mp-coupon-panel__qr img {
+    width: 140px; height: 140px;
+    border-radius: 10px;
+    border: 2px solid var(--psc-mp-border);
+}
+.psc-mp-coupon-panel__label {
+    font-size: .8rem;
+    color: var(--psc-mp-text-sub);
+    margin: 10px 0 8px;
+}
+.psc-mp-coupon-panel__token {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fff;
+    border: 1.5px solid var(--psc-mp-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+.psc-mp-coupon-panel__code {
+    font-size: .92rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--psc-mp-text);
+    font-family: 'Courier New', monospace;
+}
+.psc-mp-coupon-panel__copy {
+    padding: 5px 12px;
+    background: var(--psc-mp-primary);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+    white-space: nowrap;
+}
+.psc-mp-coupon-panel__copy:hover { background: color-mix(in srgb, var(--psc-mp-primary) 80%, #000); }
