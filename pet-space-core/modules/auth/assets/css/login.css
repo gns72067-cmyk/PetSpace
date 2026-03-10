@@ -1,0 +1,309 @@
+/* ── 리셋 & 기본 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.psc-login-body {
+    font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo",
+                 "Noto Sans KR", sans-serif;
+    background: #fff;
+    color: #191f28;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+.psc-login-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── 폼 내부 간격 ── */
+#psc-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* ── 탑바 ── */
+.psc-login-topbar {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+}
+.psc-login-back {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 300;
+    color: #191f28; text-decoration: none;
+    border: none; background: none; cursor: pointer;
+}
+
+/* ── 히어로 ── */
+.psc-login-hero {
+    padding: 8px 24px 20px; /* 32px → 20px */
+}
+.psc-login-hero__logo {
+    height: 36px;
+    display: block;
+    margin-bottom: 16px; /* 20px → 16px */
+    object-fit: contain;
+}
+.psc-login-hero__img-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.psc-login-hero__img {
+    max-height: 160px;
+    object-fit: contain;
+    border-radius: 16px;
+}
+.psc-login-hero__badge {
+    position: absolute; bottom: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    color: #fff; padding: 5px 16px; border-radius: 20px;
+    font-size: .78rem; font-weight: 700; white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(249,115,22,.3);
+}
+.psc-login-hero__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #191f28;
+    line-height: 1.35;
+    margin-bottom: 6px; /* 8px → 6px */
+}
+.psc-login-hero__title span { color: #224471; }
+.psc-login-hero__sub {
+    font-size: .88rem;
+    color: #8b95a1;
+    line-height: 1.5;
+    margin-bottom: 0; /* 추가 */
+}
+
+/* ── 소셜 버튼 ── */
+.psc-login-social {
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px; /* 추가 */
+}
+.psc-login-social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 52px;
+    padding: 0 20px;
+    border-radius: 12px;
+    font-size: .94rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: filter .15s, transform .1s;
+    font-family: "Pretendard", sans-serif;
+}
+.psc-login-social-btn:active { transform: scale(.98); }
+
+/* 카카오 공식 */
+.psc-login-social-btn--kakao {
+    background: #FEE500;
+    color: #000000;
+}
+.psc-login-social-btn--kakao:hover { filter: brightness(.96); }
+
+/* 네이버 공식 */
+.psc-login-social-btn--naver {
+    background: #03C75A;
+    color: #ffffff;
+}
+.psc-login-social-btn--naver:hover { filter: brightness(.96); }
+
+.psc-social-icon {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+}
+
+/* 구분선 */
+.psc-login-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px; /* 14px → 20px */
+    color: #b0b8c1;
+    font-size: .8rem;
+    font-weight: 500;
+}
+.psc-login-divider::before,
+.psc-login-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e5e8eb;
+}
+
+/* ── 폼 섹션 ── */
+.psc-login-form-section {
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 12px → 20px */
+}
+
+/* 에러 */
+.psc-login-error {
+    background: #fff0f0;
+    border: 1.5px solid #ffd6d6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: .84rem;
+    color: #ff4d4f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+/* 인풋 그룹 */
+.psc-login-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 7px → 10px */
+}
+.psc-login-input-group label {
+    font-size: .86rem; /* .82rem → .86rem */
+    font-weight: 700;
+    color: #4e5968;
+}
+input.psc-login-input {
+    width: 100%;
+    padding: 17px 16px; /* 15px → 17px */
+    background: #f4f6f9;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: .94rem;
+    color: #191f28;
+    outline: none;
+    transition: border-color .2s, background .2s, box-shadow .2s;
+    font-family: "Pretendard", sans-serif;
+}
+input.psc-login-input:focus {
+    border-color: #224471;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(34,68,113,.08);
+}
+input.psc-login-input::placeholder { color: #b0b8c1; }
+
+/* 비밀번호 토글 */
+.psc-login-pwd-toggle {
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    background: none; border: none;
+    cursor: pointer; color: #b0b8c1;
+    font-size: .9rem; padding: 4px;
+}
+input.psc-login-input[type="password"],
+input.psc-login-input[type="text"] {
+    padding-right: 48px;
+}
+
+/* 옵션 행 */
+.psc-login-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 2px; /* 0 → 4px */
+    margin-top: 0; /* -2px → 0 */
+}
+.psc-login-remember {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .82rem;
+    color: #4e5968;
+    font-weight: 500;
+    cursor: pointer;
+}
+input.psc-login-remember-chk {
+    width: 16px; height: 16px;
+    accent-color: #224471;
+    cursor: pointer;
+}
+.psc-login-forgot {
+    font-size: .82rem;
+    color: #8b95a1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color .2s;
+}
+.psc-login-forgot:hover { color: #224471; }
+
+/* 로그인 버튼 */
+.psc-login-btn {
+    width: 100%;
+    padding: 18px; /* 16px → 18px */
+    background: #224471;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    font-family: "Pretendard", sans-serif;
+    margin-top: 4px; /* 2px → 4px */
+    letter-spacing: -.01em;
+}
+.psc-login-btn:hover  { background: #1a3459; }
+.psc-login-btn:active { transform: scale(.98); }
+.psc-login-btn:disabled {
+    background: #e5e8eb;
+    color: #b0b8c1;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 회원가입 유도 */
+.psc-login-signup-area {
+    padding: 28px 24px 0; /* 20px → 28px */
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* 10px → 12px */
+}
+.psc-login-signup-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 17px; /* 15px → 17px */
+    background: #e8eef6;
+    color: #224471;
+    border: none;
+    border-radius: 12px;
+    font-size: .94rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s;
+    font-family: "Pretendard", sans-serif;
+}
+.psc-login-signup-btn:hover { background: #d4e0f0; }
+
+/* ── 나중에 ── */
+.psc-login-later {
+    margin-top: auto;
+    padding: 24px;
+    text-align: center;
+}
+.psc-login-later a {
+    font-size: .84rem;
+    color: #b0b8c1;
+    text-decoration: none;
+    transition: color .2s;
+}
+.psc-login-later a:hover { color: #8b95a1; }

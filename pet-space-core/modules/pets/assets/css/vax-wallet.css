@@ -1,0 +1,569 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+.psc-vax-wrap {
+    font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo", sans-serif;
+    color: #191f28;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── 반려견 탭 ── */
+.psc-vax-pet-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+}
+.psc-vax-pet-tabs::-webkit-scrollbar { display: none; }
+.psc-vax-pet-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1.5px solid #e5e8eb;
+    background: #fff;
+    font-size: .84rem;
+    font-weight: 600;
+    color: #8b95a1;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all .15s;
+    flex-shrink: 0;
+    font-family: "Pretendard", sans-serif;
+}
+.psc-vax-pet-tab:hover {
+    border-color: #224471;
+    color: #224471;
+}
+.psc-vax-pet-tab.active {
+    border-color: #224471;
+    background: #224471;
+    color: #fff;
+}
+.psc-vax-pet-tab img {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.tab-urgent-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #ef4444;
+    flex-shrink: 0;
+}
+
+/* ── 헤더 ── */
+.psc-vax-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.psc-vax-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #191f28;
+    letter-spacing: -.02em;
+}
+.psc-vax-title span {
+    font-size: .82rem;
+    font-weight: 400;
+    color: #8b95a1;
+    margin-left: 4px;
+}
+.btn-add-vax {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    background: #224471;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: .86rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+    font-family: "Pretendard", sans-serif;
+}
+.btn-add-vax:hover { background: #1a3459; }
+
+/* ── 임박 배너 ── */
+.psc-vax-urgent-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #fffbeb;
+    border: 1.5px solid #fcd34d;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    font-size: .86rem;
+    color: #92400e;
+    font-weight: 600;
+}
+
+/* ── 폼 패널 ── */
+.psc-vax-form-panel {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e8eb;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    padding: 22px;
+    margin-bottom: 20px;
+    display: none;
+}
+.psc-vax-form-panel.open { display: block; }
+.vax-form-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #191f28;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid #f2f4f6;
+    letter-spacing: -.02em;
+}
+.vax-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+@media (max-width: 560px) {
+    .vax-form-grid { grid-template-columns: 1fr; }
+}
+.vax-form-field { display: flex; flex-direction: column; gap: 5px; }
+.vax-form-field.full { grid-column: 1 / -1; }
+.vax-form-field label {
+    font-size: .8rem;
+    font-weight: 700;
+    color: #4e5968;
+}
+.vax-form-field input,
+.vax-form-field select,
+.vax-form-field textarea {
+    padding: 11px 13px;
+    border: 1.5px solid #e5e8eb;
+    border-radius: 10px;
+    font-size: .88rem;
+    color: #191f28;
+    outline: none;
+    transition: border-color .2s, background .2s;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f4f6f9;
+    font-family: "Pretendard", sans-serif;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.vax-form-field input:focus,
+.vax-form-field select:focus,
+.vax-form-field textarea:focus {
+    border-color: #224471;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(34,68,113,.08);
+}
+.vax-form-field input::placeholder,
+.vax-form-field textarea::placeholder { color: #b0b8c1; }
+.vax-form-field textarea { resize: vertical; min-height: 64px; }
+
+#vaxCustomNameWrap { margin-top: 8px; display: none; }
+#vaxCustomNameWrap input {
+    padding: 11px 13px;
+    border: 1.5px solid #e5e8eb;
+    border-radius: 10px;
+    font-size: .88rem;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f4f6f9;
+    font-family: "Pretendard", sans-serif;
+    transition: border-color .2s, background .2s;
+}
+#vaxCustomNameWrap input:focus {
+    border-color: #224471;
+    background: #fff;
+}
+
+/* ── 증빙 업로드 ── */
+.vax-attach-section { margin-top: 4px; }
+.vax-attach-label {
+    font-size: .8rem;
+    font-weight: 700;
+    color: #4e5968;
+    margin-bottom: 5px;
+}
+.vax-attach-hint {
+    font-size: .74rem;
+    color: #8b95a1;
+    margin-bottom: 8px;
+}
+.vax-attach-previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    min-height: 10px;
+}
+.vax-attach-thumb {
+    position: relative;
+    width: 76px; height: 76px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1.5px solid #e5e8eb;
+    background: #f4f6f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.vax-attach-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+.vax-attach-thumb .pdf-icon { font-size: 1.8rem; line-height: 1; }
+.vax-attach-thumb .btn-remove-attach {
+    position: absolute;
+    top: 3px; right: 3px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(25,31,40,.7);
+    color: #fff;
+    border: none;
+    font-size: .65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+.vax-attach-thumb.uploading { opacity: .6; }
+.vax-attach-upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px; height: 76px;
+    border-radius: 10px;
+    border: 2px dashed #e5e8eb;
+    background: #f4f6f9;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #8b95a1;
+    transition: all .15s;
+    flex-shrink: 0;
+}
+.vax-attach-upload-btn:hover {
+    border-color: #224471;
+    background: #eef2ff;
+    color: #224471;
+}
+.vax-attach-upload-input { display: none; }
+
+/* ── 폼 액션 ── */
+.vax-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    justify-content: flex-end;
+}
+.btn-vax-save {
+    padding: 11px 28px;
+    background: #224471;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+    font-family: "Pretendard", sans-serif;
+}
+.btn-vax-save:hover { background: #1a3459; }
+.btn-vax-cancel {
+    padding: 11px 20px;
+    background: #f4f6f9;
+    color: #4e5968;
+    border: none;
+    border-radius: 10px;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+    font-family: "Pretendard", sans-serif;
+}
+.btn-vax-cancel:hover { background: #e5e8eb; }
+
+/* ── 접종 카드 ── */
+.psc-vax-list { display: flex; flex-direction: column; gap: 12px; }
+.psc-vax-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e5e8eb;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    overflow: hidden;
+    transition: box-shadow .15s;
+    border-left: 4px solid #e5e8eb;
+}
+.psc-vax-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.09); }
+.psc-vax-card.level-danger { border-left-color: #ef4444; }
+.psc-vax-card.level-warn   { border-left-color: #f59e0b; }
+.psc-vax-card.level-ok     { border-left-color: #10b981; }
+
+.vax-card-inner    { padding: 14px 16px; }
+.vax-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.vax-card-name {
+    font-size: .94rem;
+    font-weight: 800;
+    color: #191f28;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: -.01em;
+}
+.vax-dday-badge {
+    font-size: .72rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.badge-danger { background: #fee2e2; color: #dc2626; }
+.badge-warn   { background: #fffbeb; color: #92400e; }
+.badge-ok     { background: #d1fae5; color: #065f46; }
+
+.vax-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: .78rem;
+    color: #8b95a1;
+}
+.vax-meta-item { display: flex; align-items: center; gap: 4px; }
+.vax-card-memo {
+    margin-top: 8px;
+    font-size: .78rem;
+    color: #8b95a1;
+    border-top: 1px solid #f2f4f6;
+    padding-top: 8px;
+    line-height: 1.5;
+}
+
+/* ── 카드 증빙 썸네일 ── */
+.vax-card-attachments {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-top: 1px solid #f2f4f6;
+}
+.vax-card-att-thumb {
+    width: 52px; height: 52px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1.5px solid #e5e8eb;
+    cursor: pointer;
+    transition: all .15s;
+    position: relative;
+    background: #f4f6f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.vax-card-att-thumb:hover {
+    border-color: #224471;
+    transform: scale(1.06);
+}
+.vax-card-att-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+.vax-card-att-thumb .pdf-badge { font-size: 1.3rem; line-height: 1; }
+.vax-att-count {
+    font-size: .74rem;
+    color: #8b95a1;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ── 카드 액션 ── */
+.vax-card-actions {
+    display: flex;
+    gap: 6px;
+    border-top: 1px solid #f2f4f6;
+    padding: 8px 16px;
+}
+.btn-vax-edit {
+    flex: 1;
+    padding: 7px;
+    background: #f4f6f9;
+    border: none;
+    border-radius: 8px;
+    font-size: .8rem;
+    font-weight: 600;
+    color: #4e5968;
+    cursor: pointer;
+    transition: background .15s;
+    font-family: "Pretendard", sans-serif;
+}
+.btn-vax-edit:hover { background: #e5e8eb; }
+.btn-vax-del {
+    padding: 7px 14px;
+    background: #fff0f0;
+    border: none;
+    border-radius: 8px;
+    font-size: .8rem;
+    font-weight: 600;
+    color: #dc2626;
+    cursor: pointer;
+    transition: background .15s;
+    font-family: "Pretendard", sans-serif;
+}
+.btn-vax-del:hover { background: #fecaca; }
+
+/* ── 라이트박스 ── */
+.psc-vax-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.psc-vax-lightbox.open { display: flex; }
+.lightbox-inner {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-inner img {
+    max-width: 88vw;
+    max-height: 85vh;
+    border-radius: 12px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.5);
+}
+.lightbox-close {
+    position: absolute;
+    top: -14px; right: -14px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-pdf-wrap {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 40px;
+    text-align: center;
+}
+.lightbox-pdf-wrap .pdf-big  { font-size: 4rem; margin-bottom: 12px; }
+.lightbox-pdf-wrap p {
+    font-size: .88rem;
+    color: #8b95a1;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+.btn-pdf-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 24px;
+    background: #224471;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: "Pretendard", sans-serif;
+}
+
+/* ── 빈 상태 ── */
+.psc-vax-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 24px;
+    text-align: center;
+}
+.psc-vax-empty .icon { font-size: 3.5rem; margin-bottom: 12px; }
+.psc-vax-empty p {
+    font-size: .9rem;
+    color: #8b95a1;
+    line-height: 1.7;
+}
+
+/* ── 반려견 없음 ── */
+.psc-vax-no-pet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 20px;
+    background: #f4f6f9;
+    border-radius: 16px;
+    border: 1.5px dashed #e5e8eb;
+    text-align: center;
+}
+.psc-vax-no-pet .icon { font-size: 3rem; margin-bottom: 10px; }
+.psc-vax-no-pet p {
+    font-size: .88rem;
+    color: #8b95a1;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+.btn-go-pets {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #224471;
+    color: #fff;
+    border-radius: 10px;
+    font-size: .86rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s;
+    font-family: "Pretendard", sans-serif;
+}
+.btn-go-pets:hover { background: #1a3459; }
+
+/* ── 토스트 ── */
+.psc-vax-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #191f28;
+    color: #fff;
+    padding: 11px 22px;
+    border-radius: 30px;
+    font-size: .86rem;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+    white-space: nowrap;
+    font-family: "Pretendard", sans-serif;
+}
+.psc-vax-toast.show { opacity: 1; }
