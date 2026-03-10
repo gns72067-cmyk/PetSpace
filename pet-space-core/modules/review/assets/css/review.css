@@ -106,18 +106,18 @@
 
 /* 인증 탭 */
 .psc-rv-verify-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-.psc-rv-verify-tab { flex: 1; padding: 16px 12px; border: 2px solid var(--rv-border); border-radius: var(--rv-radius); background: var(--rv-card); text-align: center; cursor: pointer; transition: all .15s; font-family: var(--rv-font); }
-.psc-rv-verify-tab.is-active { border-color: var(--rv-primary); background: var(--rv-primary-lt); }
+button.psc-rv-verify-tab { flex: 1; padding: 16px 12px; border: 2px solid var(--rv-border) !important; border-radius: var(--rv-radius); background: var(--rv-card) !important; text-align: center; cursor: pointer; transition: all .15s; font-family: var(--rv-font); outline: none !important; box-shadow: none !important; color: var(--rv-text1) !important; }
+button.psc-rv-verify-tab.is-active { border-color: var(--rv-primary) !important; background: var(--rv-primary-lt) !important; }
 .psc-rv-verify-tab__icon { font-size: 1.8rem; margin-bottom: 6px; }
-.psc-rv-verify-tab__label { font-size: .9rem; font-weight: 700; color: var(--rv-text1); }
-.psc-rv-verify-tab__desc { font-size: .75rem; color: var(--rv-text3); margin-top: 3px; }
+button.psc-rv-verify-tab .psc-rv-verify-tab__label { font-size: .9rem; font-weight: 700; color: var(--rv-text1) !important; }
+button.psc-rv-verify-tab .psc-rv-verify-tab__desc { font-size: .75rem; color: var(--rv-text3) !important; margin-top: 3px; }
 
 /* 인증 패널 */
 .psc-rv-verify-panel { display: none; }
 .psc-rv-verify-panel.is-active { display: block; }
 
 /* 영수증 업로드 존 */
-.psc-rv-receipt-zone { border: 2px dashed var(--rv-border); border-radius: var(--rv-radius); padding: 36px 20px; text-align: center; cursor: pointer; transition: all .15s; margin-bottom: 16px; }
+.psc-rv-receipt-zone { border: 2px dashed var(--rv-border) !important; border-radius: var(--rv-radius); padding: 36px 20px; text-align: center; cursor: pointer; transition: all .15s; margin-bottom: 16px; background: var(--rv-bg); }
 .psc-rv-receipt-zone:hover, .psc-rv-receipt-zone.is-dragover { border-color: var(--rv-primary); background: var(--rv-primary-lt); }
 .psc-rv-receipt-zone__icon { font-size: 2.4rem; margin-bottom: 10px; }
 .psc-rv-receipt-zone__title { font-size: .95rem; font-weight: 700; color: var(--rv-text1); margin-bottom: 4px; }
@@ -216,10 +216,10 @@ textarea.psc-rv-textarea:focus { outline: none; border-color: var(--rv-primary);
 .psc-rv-img-item__del { position: absolute; top: -5px; right: -5px; background: var(--rv-red); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: .75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
 /* 제출 버튼 */
-button.psc-rv-submit-btn { width: 100%; padding: 15px; background: var(--rv-primary); color: #fff; border: none; border-radius: var(--rv-radius); font-size: .95rem; font-weight: 800; font-family: var(--rv-font); cursor: pointer; transition: background .15s, transform .1s; }
+button.psc-rv-submit-btn { width: 100%; padding: 15px; background: var(--rv-primary) !important; color: #fff !important; border: none !important; border-radius: var(--rv-radius); font-size: .95rem; font-weight: 800; font-family: var(--rv-font); cursor: pointer; transition: background .15s, transform .1s; outline: none !important; box-shadow: none !important; }
 button.psc-rv-submit-btn:hover { background: var(--rv-primary-dk); }
 button.psc-rv-submit-btn:active { transform: scale(.98); }
-button.psc-rv-submit-btn:disabled { background: var(--rv-border); color: var(--rv-text3); cursor: not-allowed; transform: none; }
+button.psc-rv-submit-btn:disabled { background: var(--rv-border) !important; color: var(--rv-text3) !important; cursor: not-allowed; transform: none; }
 
 /* 인라인 배지 */
 .psc-rating-inline { display: inline-flex; align-items: center; gap: 4px; font-family: var(--rv-font); font-size: .95rem; }
