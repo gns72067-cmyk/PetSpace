@@ -72,6 +72,7 @@ psc_require( 'modules/vendor-dashboard-coupons.php' );
 /* ============================================================
    회원 인증
    ============================================================ */
+psc_require( 'modules/auth/assets.php' );
 psc_require( 'modules/auth/register-admin.php' );
 psc_require( 'modules/auth/register.php' );
 psc_require( 'modules/auth/login.php' );
