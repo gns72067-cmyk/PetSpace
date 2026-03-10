@@ -91,6 +91,7 @@ psc_require( 'modules/pets/vax-wallet.php' );
    리뷰
    ※ 반드시 review.php → ajax → render → admin 순서 유지
    ============================================================ */
+psc_require( 'modules/review/assets.php' );
 psc_require( 'modules/review/review.php' );
 psc_require( 'modules/review/review-ajax.php' );
 psc_require( 'modules/review/review-render.php' );
