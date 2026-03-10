@@ -291,6 +291,8 @@ Hero
 
 남발 금지
 
+7.5 hover 시 color 명시 규칙 — 테마가 button:hover { color: #fff } 같은 전역 스타일을 가지므로, hover 규칙에도 반드시 color !important를 명시한다.
+
 8. 디자인 참고 원칙 (Toss UI 포함)
 8.1 기본 원칙
 
