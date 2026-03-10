@@ -16,6 +16,15 @@ define( 'PSC_PLUGIN_FILE', __FILE__ );                    // ← 추가: registe
 define( 'PSC_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
 define( 'PSC_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
 
+add_action( 'wp_enqueue_scripts', function (): void {
+    wp_enqueue_style(
+        'psc-ui-scope',
+        PSC_PLUGIN_URL . 'assets/css/psc-ui-scope.css',
+        [],
+        PSC_VERSION
+    );
+} );
+
 /* ============================================================
    파일 존재 여부 확인 후 로드 (누락 파일로 인한 fatal 방지)
    ============================================================ */
