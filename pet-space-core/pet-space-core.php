@@ -83,6 +83,7 @@ psc_require( 'modules/mypage/mypage.php' );
 /* ============================================================
    반려견 정보
    ============================================================ */
+psc_require( 'modules/pets/assets.php' );
 psc_require( 'modules/pets/pets.php' );
 psc_require( 'modules/pets/vax-wallet.php' );
 
