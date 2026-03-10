@@ -77,6 +77,7 @@ psc_require( 'modules/auth/register-admin.php' );
 psc_require( 'modules/auth/register.php' );
 psc_require( 'modules/auth/login.php' );
 psc_require( 'modules/auth/reset-password.php' );
+psc_require( 'modules/mypage/assets.php' );
 psc_require( 'modules/mypage/mypage.php' );
 
 /* ============================================================
