@@ -105,6 +105,8 @@ psc_require( 'modules/review/review.php' );
 psc_require( 'modules/review/review-ajax.php' );
 psc_require( 'modules/review/review-render.php' );
 psc_require( 'modules/review/review-admin.php' );
+psc_require( 'modules/review-carousel/assets.php' );
+psc_require( 'modules/review-carousel/review-carousel.php' );
 
 /* ============================================================
    플러그인 활성화 훅 (테이블 생성 등)
@@ -145,11 +147,4 @@ function psc_bottom_nav_active(): void {
                     if (li) {
                         li.classList.add('current-menu-item', 'current_page_item');
                     }
-                    link.classList.add('elementor-item-active');
-                }
-            });
-        });
-    })();
-    </script>
-    <?php
-}
+                    link.classLi
